@@ -1,38 +1,44 @@
-import {useEffect, useState} from "react"
-import Item from "../../components/item/item"
-import { useParams } from "react-router-dom"
+import {useEffect, useState} from "react";
+import { Link, useParams } from "react-router-dom";
+import { db } from "../../firebase/client";
+import {collection, doc, getDoc, getDocs, query, where, limit } from "firebase/firestore";
+import { Spinner } from "react-bootstrap";
+import ItemList from "../../components/itemList/itemList";
 
-const ItemListContainer = ({products}) => {
-
-    const promesa = new Promise((resolve,reject) =>{
-        {/*const productosArray = [
-            {name: "Torta", precio: 3000, id:1},
-            {name: "Postre", precio: 4000, id:2},
-            {name: "Alfajor", precio: 2000, id:3},
-            {name: "Crema", precio: 1000, id:4},
-        ]*/}
-        setTimeout(() => {
-            products.length > 0 ? resolve(products) : reject({data: [], massage: "no hay productos"})
-        }, 5000)
-    })
+const ItemListContainer = () => {
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState([true])
+    const {id} = useParams()
 
     useEffect(() => {
-        promesa
-        .then(res => (res))
-        .catch(error => console.error(error.massage))
-    }, [])
+        const productsRef = collection(db, "products")
+
+        if (id) {
+            const q = query(productsRef, where("categoryId", "==", id))
+            getDocs(q)
+            .then(snapshot => {
+                setProducts(snapshot.docs.map(doc =>({id: doc.id, ...doc.data()})))
+            })
+            .catch(e => console.error(e))
+            .finally(() => setLoading(false))
+        } else {
+            getDocs(productsRef)
+            .then(snapshot => {
+                setProducts(snapshot.docs.map(doc =>({id: doc.id, ...doc.data()})))
+            })
+            .catch(e => console.error(e))
+            .finally(() => setLoading(false))
+        }
+        
+    }, [id])
+
+    if (loading) return <Spinner />
 
     return (
-        <>
-        {products.length > 0 ? (
-            <>
-            {products.map(prod => <Item key={prod.id} title={prod.title} price={prod.price} id={prod.id}/>)}
-            </>
-        ) : (
-            <p>Cargando...</p>
-        )}
-        </>
+        <ItemList products={products}/>
     )
+    
 }
-
+        
+    
 export default ItemListContainer

@@ -1,26 +1,38 @@
-import { useEffect, useState, useId } from "react";
+import { useEffect, useState, } from "react";
 import { useParams } from "react-router-dom";
+import ItemDetail from "../itemDetail/itemDetail";
+import Loader from "../loader/loader";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/client";
 
 
 const ItemDetailContainer = () => {
     const {id} = useParams()
-    console.log("ID", id)
     const [producto, setProducto] = useState()
+    const [loading, setLoading] = useState(true)
 
     useEffect (() => {
-        fetch(`https://fakestoreapi.com/products/${id}`)
-        .then(res=>res.json())
-        .then(json=> {
-            setProducto(json)
-            console.log(json)
+        const productRef = doc(db, "products", id)
+        getDoc(productRef)
+        .then(snapshot => {
+            if(snapshot.exists()){
+                setProducto({
+                    id: snapshot.id,
+                    ...snapshot.data()
+                })
+            }
         })
-        .catch(error => console.error(error))
+        .catch(e =>console.error(e))
+        .finally(() => setLoading(false))
     }, [id])
 
     return (
         <>
-        <h2>{producto?.title}</h2>
-        <p>Description: {producto?.description}</p>
+            {loading ? (
+                <Loader loading={loading}/>
+            ) : (
+                <ItemDetail producto={producto}/>
+            )}
         </>
     )
 }

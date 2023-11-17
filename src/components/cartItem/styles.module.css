@@ -1,0 +1,17 @@
+.card{
+    width: 80%;
+    margin: 20px; 
+    display: flex;
+    flex-direction: row;
+    height: 120px;
+}
+
+.img{
+    height:auto;
+    width: 30%; 
+    object-fit: cover;
+}
+
+.body{
+    width:70%;
+}

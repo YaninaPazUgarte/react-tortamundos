@@ -1,0 +1,16 @@
+.card{
+    width: calc(33.33% - 10px);
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+.buttonCard{
+    color: "white";
+}
+
+.img{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+

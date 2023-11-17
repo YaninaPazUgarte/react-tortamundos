@@ -1,0 +1,13 @@
+.counter{
+    display: flex;
+}
+
+.p{
+    height: 20;
+    text-align: center;
+}
+
+.button{
+    width: 20;
+    height: 10;
+}

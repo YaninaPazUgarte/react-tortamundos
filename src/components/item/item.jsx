@@ -1,15 +1,29 @@
-import styles from './styles.module.css'
 import { Link } from 'react-router-dom';
+import { Button, Card } from "react-bootstrap";
+import style from './styles.module.css'
 
-const Item = ({id, title, price}) => {
+
+const Item = ({id, title, price, image}) => {
+
+    const sumar = () => {
+        setNumero(numero + 1)
+    }
 
     return(
-        <div className={styles.card}>
-            <h1>{title}</h1>
-            <p>{price}</p>
-            <Link to={`/item/${id}`}>Ver mas</Link>
-        </div>
+            
+        <Card className={style.card}>
+            <Card.Img className={style.img} src={image} />
+            <Card.Body>
+                <Card.Title>{title}</Card.Title>
+                <Card.Text>{price}</Card.Text>
+                    <Link to={`/item/${id}`}>
+                        <Button className={style.button}>Ver mas</Button>
+                    </Link>
+            </Card.Body>
+        </Card>       
+        
     )
+
 }
 
 export default Item
