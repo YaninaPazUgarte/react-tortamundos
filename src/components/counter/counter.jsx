@@ -65,7 +65,7 @@ const Counter = ({product}) => {
     return(
         <div className={style.counter}>
             <Button variant="info" size="sm" onClick={resta}><p classname={style.button}>-</p></Button>
-            <p classname={style.p}>{counter -1}</p>
+            <p classname={style.p}>{counter - 1}</p>
             <Button variant="info" size="sm" onClick={suma}><p classname={style.button}>+</p></Button>
         </div>
     )
