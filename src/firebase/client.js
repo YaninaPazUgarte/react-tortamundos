@@ -2,13 +2,12 @@ import {initializeApp} from "firebase/app"
 import {getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBnNUlZaFc7dIDdsfIaQzXYpa1rpZj7CEQ",
-    authDomain: "proyectoani-289b1.firebaseapp.com",
-    projectId: "proyectoani-289b1",
-    storageBucket: "proyectoani-289b1.appspot.com",
-    messagingSenderId: "935598756955",
-    appId: "1:935598756955:web:e176c98f1b2e826078db7e"
-};
-
+    apiKey: "AIzaSyD2pCWDUlIZ23fNuR_Gp-5L_jUotGyS_cs",
+    authDomain: "santo-c9db8.firebaseapp.com",
+    projectId: "santo-c9db8",
+    storageBucket: "santo-c9db8.appspot.com",
+    messagingSenderId: "774410140654",
+    appId: "1:774410140654:web:1bc0b390ce1824aa6e2cff"
+  };
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
